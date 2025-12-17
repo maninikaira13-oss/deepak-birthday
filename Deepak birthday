@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deepak’s Birthday Countdown 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #4a148c;
+  overflow: hidden;
+}
+
+.container {
+  background: rgba(255,255,255,0.9);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  max-width: 360px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.value {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 0.8rem;
+}
+
+button {
+  background: #ff4081;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #f50057;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+  color: #ff1744;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>💖 Deepak 💖</h1>
+  <p>Your birthday is coming in…</p>
+
+  <div id="countdown" class="timer">
+    <div class="box"><div id="days" class="value">0</div><div class="label">Days</div></div>
+    <div class="box"><div id="hours" class="value">0</div><div class="label">Hours</div></div>
+    <div class="box"><div id="minutes" class="value">0</div><div class="label">Minutes</div></div>
+    <div class="box"><div id="seconds" class="value">0</div><div class="label">Seconds</div></div>
+  </div>
+
+  <button onclick="playMusic()">▶ Play Music</button>
+
+  <audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+const birthday = new Date("2026-01-10T00:00:00").getTime(); // 🎂 10 JAN 2026
+
+function updateTimer() {
+  const now = new Date().getTime();
+  const diff = birthday - now;
+
+  if (diff <= 0) {
+    document.body.innerHTML = `
+      <div class="container">
+        <h1>🎉 Happy Birthday Deepak! 🎉</h1>
+        <p>
+          You are my favourite person 💖<br><br>
+          My happiness, my smile, my safe place.<br><br>
+          I’m so lucky to have you.<br>
+          Today is all about YOU 🎂✨
+        </p>
+      </div>`;
+    playMusic();
+    return;
+  }
+
+  document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+  document.getElementById("hours").innerText = Math.floor((diff / (1000*60*60)) % 24);
+  document.getElementById("minutes").innerText = Math.floor((diff / (1000*60)) % 60);
+  document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+}
+
+function playMusic() {
+  document.getElementById("music").play();
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// 💕 floating hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.innerHTML = "❤️";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+</script>
+
+</body>
+</html>
